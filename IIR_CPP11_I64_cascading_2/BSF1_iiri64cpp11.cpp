@@ -1,27 +1,28 @@
 // filtername_iirXXXcpp11_cpp.txt template file, version: 01_02_01
 // GENERATED FILE! MODIFY THIS FILE ONLY AT YOUR OWN RESPONSIBLITY!
 // An identical behaviour to the simulation results can be assured only if this file remains unchanged!
-// Code file of LPF C++11 IIR filter implementation with the datatype of long long
+// Code file of BSF1 C++11 IIR filter implementation with the datatype of long long
 // File implements the following filter:
 // INFINITE IMPULSE RESPONSE
-// LOW PASS FILTER
-// CAUER APPROXIMATION
+// BAND STOP FILTER
+// BUTTERWORTH APPROXIMATION
 // A_s = -40.0 dB, d_r = 0.1
 // f_sa = 16000.0 Hz
-// f_c = 4200.0 Hz, f_s = 5000.0 Hz
-// Requirement checksum: 34a4df31e6369e557075b687be02ada1
+// f_c1 = 500.0 Hz, f_s1 = 1200.0 Hz
+// f_s2 = 1500.0 Hz, f_c2 = 2500.0 Hz
+// Requirement checksum: 69ef44493da109fbe9700a0fa54f2779
 
-// Created at unix time: 1618777995
+// Created at unix time: 1618868643
 // Designer DLL version: IIR_DESIGNER_01_01_02
 // Licensed DLL user: Gabor Kiszely
 // DLL license info: 2021_01_09
 // Filter valid: True
 // Validator DLL version: IIR_CPP11_VALIDATOR_01_01_01
-// Result checksum: ee83614716437233f66585d987a358e2
+// Result checksum: 1d0854dbf25d47ec0c2befad8b5146bb
 
-#include "LPF_iiri64cpp11.hpp"
+#include "BSF1_iiri64cpp11.hpp"
 
-void CLPFIirI64Cpp11::resetFilter()
+void CBSF1IirI64Cpp11::resetFilter()
 {
     m_n = 0;
     for (auto& l_iirSegment : m_iirSegments_vec)
@@ -31,7 +32,7 @@ void CLPFIirI64Cpp11::resetFilter()
 }
 
 // Function calculates the output value
-long long CLPFIirI64Cpp11::doFiltering(long long f_inputVal)
+long long CBSF1IirI64Cpp11::doFiltering(long long f_inputVal)
 {
     long long l_retVal = f_inputVal;
     for (auto& l_iirSegment : m_iirSegments_vec)
@@ -44,7 +45,7 @@ long long CLPFIirI64Cpp11::doFiltering(long long f_inputVal)
 // Function calculates the rewards calculations of the filter
 // This function can be called in a parallel thread, started immediatelly after the doFiltering function
 // Calculations must be done before the next call of doFiltering
-void CLPFIirI64Cpp11::doRwdFiltering()
+void CBSF1IirI64Cpp11::doRwdFiltering()
 {
     for (auto& l_iirSegment : m_iirSegments_vec)
     {

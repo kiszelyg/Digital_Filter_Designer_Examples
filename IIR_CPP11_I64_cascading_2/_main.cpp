@@ -6,11 +6,12 @@
 // Only one instance of the iircpp11.hpp can handle all the filter segments
 
 //
-//   0 dB      ___     ___
-//            |   |   |   |
-//            |   |   |   |
-// -40 dB  ___|   |___|   |___
+//   0 dB  ___     ____     ___
+//            |   |    |   |
+//            |   |    |   |
+// -40 dB     |___|    |___|
 //
+
 
 // f_c1 = 500 Hz
 // f_s1 = 1200 Hz
@@ -22,8 +23,8 @@
 // f_c4 = 5000 Hz
 // f_s = 16000 Hz
 
-#include "BPF_iiri64cpp11.hpp"  // STEP 0: Include the generated header file of the filter implementation
-#include "BSF_iiri64cpp11.hpp"  // STEP 0: Include the generated header file of the filter implementation
+#include "BSF1_iiri64cpp11.hpp"  // STEP 0: Include the generated header file of the filter implementation
+#include "BSF2_iiri64cpp11.hpp"  // STEP 0: Include the generated header file of the filter implementation
 
 // These includes are necessary for the filter simulation. They are probably not neccessary for your filter application
 #define _USE_MATH_DEFINES // M_PI
@@ -39,8 +40,8 @@
 
 int main()
 {
-	CBPFIirI64Cpp11 l_bpfFilter; // STEP 1: Make a filter instance
-	CBSFIirI64Cpp11 l_bsfFilter; // STEP 1: Make a filter instance
+	CBSF1IirI64Cpp11 l_bsf1Filter; // STEP 1: Make a filter instance
+	CBSF2IirI64Cpp11 l_bsf2Filter; // STEP 1: Make a filter instance
 
 	double l_startFreq_f64 = 0.0;
 	double l_finalFreq_f64 = SAMPLING_FREQ / 2.0;
@@ -55,8 +56,8 @@ int main()
 
 	while (l_recentFreq_f64 < l_finalFreq_f64)
 	{
-		l_bpfFilter.resetFilter(); // STEP 2: Reset the filter between the frequency steps
-		l_bsfFilter.resetFilter(); // STEP 2: Reset the filter between the frequency steps
+		l_bsf1Filter.resetFilter(); // STEP 2: Reset the filter between the frequency steps
+		l_bsf2Filter.resetFilter(); // STEP 2: Reset the filter between the frequency steps
 
 		double l_absSumInput_f64 = 0.0;
 		double l_absSumOutput_f64 = 0.0;
@@ -77,11 +78,11 @@ int main()
 			long long l_realInputVal = (long long)(round(l_inputVal_f64)); // Input value must fit to the filter data type
 			long long l_realOutputVal = 0.0; // Input value must fit to the filter data type
 
-			l_realOutputVal = l_bpfFilter.doFiltering(l_realInputVal); // STEP 3: Call the filter with the recent input value
-			l_realOutputVal = l_bsfFilter.doFiltering(l_realOutputVal);
+			l_realOutputVal = l_bsf1Filter.doFiltering(l_realInputVal); // STEP 3: Call the filter with the recent input value
+			l_realOutputVal = l_bsf2Filter.doFiltering(l_realOutputVal);
 
-			l_bpfFilter.doRwdFiltering(); // STEP 4: Do the rewards filtering, this function can be called parallely, calculations must be done before the next call of doFiltering
-			l_bsfFilter.doRwdFiltering(); // STEP 4: Do the rewards filtering, this function can be called parallely, calculations must be done before the next call of doFiltering
+			l_bsf1Filter.doRwdFiltering(); // STEP 4: Do the rewards filtering, this function can be called parallely, calculations must be done before the next call of doFiltering
+			l_bsf2Filter.doRwdFiltering(); // STEP 4: Do the rewards filtering, this function can be called parallely, calculations must be done before the next call of doFiltering
 
 			double l_outputVal_f64 = (double)l_realOutputVal; // Only for the simulation
 
