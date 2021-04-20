@@ -2,6 +2,7 @@
 // GENERATED FILE! MODIFY THIS FILE ONLY AT YOUR OWN RESPONSIBLITY!
 // An identical behaviour to the simulation results can be assured only if this file remains unchanged!
 // Header file of a general C++98 FIR filter implementation
+// One instance of this file can handle any amount of particular filter instances
 
 #ifndef _FIRCPP98_HPP_
 #define _FIRCPP98_HPP_

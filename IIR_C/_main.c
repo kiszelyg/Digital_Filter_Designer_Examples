@@ -1,6 +1,7 @@
 // Example to print out the frequency response of the filter
 
-#include "MyFilter_iiri64c.h" // STEP 0: Include the generated header file of the filter implementation
+#include "MyFilter_iiri32c.h" // STEP 0: Include the generated header file of the filter implementation
+
 
 // These includes are necessary for the filter simulation. They are probably not neccessary for your filter application
 #define _USE_MATH_DEFINES
@@ -11,13 +12,13 @@
 #define NUM_OF_STEPS 1001 // The frequency range between 0 Hz and SAMPLING_FREQ Hz will be divided to as much parts
 #define NUM_OF_SAMPLES 3000 // The number of analysed steps at the single frequency values, shorter value may give uncertain results, longer value causes longer simulation time
 #define SAMPLING_FREQ 16000.0 // Sampling frequency, must be the same value, as the sampling frequency of the filter
-#define AMPLITUDE 131071 // Amplitude of the incoming signal, lower values may cause underflow, higher values may cause overflow
+#define AMPLITUDE 4095 // Amplitude of the incoming signal, lower values may cause underflow, higher values may cause overflow
 #define INITIALLY_IGNORED_SAMPLES 100 // Some of the first samples must ignored for the result calculation
 
 int main()
 {
-	struct CMyFilterIirI64C l_myFilter; // STEP 1: Make a filter instance
-	if (RETURN_OK != CMyFilterIirI64C_initFilter(&l_myFilter)) // STEP 2: Initialise it
+	struct CMyFilterIirI32C l_myFilter; // STEP 1: Make a filter instance
+	if (RETURN_OK != CMyFilterIirI32C_initFilter(&l_myFilter)) // STEP 2: Initialise it
 	{
 		printf("Implement your failure handling for this case!\n");
 		return RETURN_ERROR;
@@ -37,8 +38,8 @@ int main()
 	// Example 1: make a full swipe between 0 Hz and the half of sampling frequency
 	while (l_recentFreq_f64 < l_finalFreq_f64)
 	{
-		CMyFilterIirI64C_resetFilter(&l_myFilter); // STEP 3: Reset the filter between the frequency steps
-		
+		CMyFilterIirI32C_resetFilter(&l_myFilter); // STEP 3: Reset the filter between the frequency steps
+
 		double l_absSumInput_f64 = 0.0;
 		double l_absSumOutput_f64 = 0.0;
 
@@ -55,11 +56,11 @@ int main()
 				l_inputVal_f64 = l_amplitude_f64;
 			}
 
-			long long l_realInputVal = (long long)(round(l_inputVal_f64)); // Input value must fit to the filter data type
-			long long l_realOutputVal = 0.0; // Input value must fit to the filter data type
+			long l_realInputVal = (long)l_inputVal_f64; // Input value must fit to the filter data type
+			long l_realOutputVal = 0.0; // Input value must fit to the filter data type
 
-			l_realOutputVal = CMyFilterIirI64C_doFiltering(&l_myFilter, l_realInputVal); // STEP 4: Call the filter with the recent input value
-			CMyFilterIirI64C_doRwdFiltering(&l_myFilter); // STEP 5: Do the rewards filtering, this function can be called parallely, calculations must be done before the next call of doFiltering
+			l_realOutputVal = CMyFilterIirI32C_doFiltering(&l_myFilter, l_realInputVal); // STEP 4: Call the filter with the recent input value
+			CMyFilterIirI32C_doRwdFiltering(&l_myFilter); // STEP 5: Do the rewards filtering, this function can be called parallely, calculations must be done before the next call of doFiltering
 
 			double l_outputVal_f64 = (double)l_realOutputVal; // Only for the simulation
 			l_realOutputVal = 0.0;
@@ -75,6 +76,6 @@ int main()
 
 		l_recentFreq_f64 = l_recentFreq_f64 + l_stepSize_f64;
 	}
-	CMyFilterIirI64C_destroyFilter(&l_myFilter); // STEP 6: Clean up the memory at the end of the operation
+	CMyFilterIirI32C_destroyFilter(&l_myFilter); // STEP 6: Clean up the memory at the end of the operation
 	return 0;
 }

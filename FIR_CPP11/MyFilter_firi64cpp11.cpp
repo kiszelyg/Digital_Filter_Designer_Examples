@@ -4,19 +4,20 @@
 // Code file of MyFilter C++11 FIR filter implementation with the datatype of long long
 // File implements the following filter:
 // FINITE IMPULSE RESPONSE
-// LOW PASS FILTER
+// BAND PASS FILTER
 // A_s = -40.0 dB
 // f_sa = 16000.0 Hz
-// f_c = 2000.0 Hz, f_s = 3000.0 Hz
-// Requirement checksum: 1d61d275710be224cc82236ae85b28ab
+// f_s1 = 2000.0 Hz, f_c1 = 3000.0 Hz
+// f_c2 = 5000.0 Hz, f_s2 = 6000.0 Hz
+// Requirement checksum: 830bddb5c5d97ac081753ffba9040f4c
 
-// Created at unix time: 1618431298
+// Created at unix time: 1618932697
 // Designer DLL version: FIR_DESIGNER_01_01_02
 // Licensed DLL user: Gabor Kiszely
 // DLL license info: 2021_01_09
 // Filter valid: True
 // Validator DLL version: FIR_CPP11_VALIDATOR_01_01_01
-// Result checksum: 818c2239ddde0b19e5ec1fd51392b366
+// Result checksum: 0748d9d5b5132fc6c2e63f37f570035e
 
 #include "MyFilter_firi64cpp11.hpp"
 
@@ -25,43 +26,43 @@ CMyFilterFirI64Cpp11::CMyFilterFirI64Cpp11()
 {
     m_coeffs_vec.resize(37);
     m_coeffs_vec = {
-        static_cast<long long>(-158),
-        static_cast<long long>(-202),
+        static_cast<long long>(317),
         static_cast<long long>(0),
-        static_cast<long long>(358),
-        static_cast<long long>(511),
-        static_cast<long long>(136),
-        static_cast<long long>(-613),
-        static_cast<long long>(-1047),
-        static_cast<long long>(-500),
-        static_cast<long long>(886),
-        static_cast<long long>(1948),
-        static_cast<long long>(1327),
-        static_cast<long long>(-1133),
-        static_cast<long long>(-3662),
-        static_cast<long long>(-3436),
-        static_cast<long long>(1304),
-        static_cast<long long>(9469),
-        static_cast<long long>(17269),
-        static_cast<long long>(20480),
-        static_cast<long long>(17269),
-        static_cast<long long>(9469),
-        static_cast<long long>(1304),
-        static_cast<long long>(-3436),
-        static_cast<long long>(-3662),
-        static_cast<long long>(-1133),
-        static_cast<long long>(1327),
-        static_cast<long long>(1948),
-        static_cast<long long>(886),
-        static_cast<long long>(-500),
-        static_cast<long long>(-1047),
-        static_cast<long long>(-613),
-        static_cast<long long>(136),
-        static_cast<long long>(511),
-        static_cast<long long>(358),
         static_cast<long long>(0),
-        static_cast<long long>(-202),
-        static_cast<long long>(-158),
+        static_cast<long long>(0),
+        static_cast<long long>(-1021),
+        static_cast<long long>(0),
+        static_cast<long long>(1225),
+        static_cast<long long>(0),
+        static_cast<long long>(1000),
+        static_cast<long long>(0),
+        static_cast<long long>(-3896),
+        static_cast<long long>(0),
+        static_cast<long long>(2265),
+        static_cast<long long>(0),
+        static_cast<long long>(6872),
+        static_cast<long long>(0),
+        static_cast<long long>(-18938),
+        static_cast<long long>(0),
+        static_cast<long long>(24576),
+        static_cast<long long>(0),
+        static_cast<long long>(-18938),
+        static_cast<long long>(0),
+        static_cast<long long>(6872),
+        static_cast<long long>(0),
+        static_cast<long long>(2265),
+        static_cast<long long>(0),
+        static_cast<long long>(-3896),
+        static_cast<long long>(0),
+        static_cast<long long>(1000),
+        static_cast<long long>(0),
+        static_cast<long long>(1225),
+        static_cast<long long>(0),
+        static_cast<long long>(-1021),
+        static_cast<long long>(0),
+        static_cast<long long>(0),
+        static_cast<long long>(0),
+        static_cast<long long>(317),
         };
     m_inputBuffer_vec.clear();
     m_inputBuffer_vec.resize(37);
