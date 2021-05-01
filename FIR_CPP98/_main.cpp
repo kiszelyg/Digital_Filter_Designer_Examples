@@ -1,6 +1,6 @@
 // Example to print out the frequency response of the filter
 
-#include "myfilter_firf64cpp98.hpp" // STEP 0: Include the generated header file of the filter implementation
+#include "MyFilter_firf64cpp98.hpp" // STEP 0: Include the generated header file of the filter implementation
 
 // These includes are necessary for the filter simulation. They are probably not neccessary for your filter application
 #define _USE_MATH_DEFINES
